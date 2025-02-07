@@ -42,4 +42,18 @@ public class PQList implements PriorityQueue {
     public int getSize() {
         return this.length;
     }
+
+    @Override
+    public void clear() {
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if(this.length == 0)
+            return true;
+        return false;
+    }
 }
