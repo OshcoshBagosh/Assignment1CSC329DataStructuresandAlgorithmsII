@@ -2,11 +2,14 @@ package org.example;
 
 import java.util.Objects;
 
+/**
+ * This class contains methods and attributes for the Player Object
+ */
 public class Player {
     private int score;
     private String name;
 
-    public Player(){
+    public Player(){ //default constructor
         this.name = "";
         this.score = 0;
     }
@@ -15,7 +18,7 @@ public class Player {
         this.name =  name;
         this.score = score;
     }
-    public Player(Player other){
+    public Player(Player other){ //Copy constructor
         this.name = other.name;
         this.score = other.score;
     }
@@ -40,5 +43,18 @@ public class Player {
         return clone;
    }
 
+    /**
+     * overrides equals() method so Players with the same name are equal
+     * @param o
+     * @return True or False
+     */
+   @Override
+    public boolean equals(Object o){
+        Player player = (Player)o; //casts Object to Player
+        if (this.name.equals(player.name)){
+            return true;
+        }
+            return false;
+   }
 
 }

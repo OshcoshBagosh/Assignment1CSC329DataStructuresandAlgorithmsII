@@ -1,25 +1,51 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Player player1 = new Player("John", 27);
-        Player player2 = new Player("Steve", 39);
-        Player player3 = new Player("Joe", 20);
-        Player player4 = new Player("Mark", 87);
-        Player player5 = new Player("Simon", 1);
-        Player player6 = new Player("Logan", 100);
-
         PQList list = new PQList();
-        list.add(player1);
-        list.add(player2);
-        list.add(player3);
-        list.add(player4);
-        list.add(player5);
-        list.add(player6);
+        try {
+            FileReader fr = new FileReader("players.txt");
+            Scanner infile = new Scanner(fr);
+            String line;
+            String line2;
+            int score;
 
-        System.out.println(list.getSize());
-        System.out.println(list.getHighestScorePlayer().getName());
+
+            while (infile.hasNextLine()) {
+                line = infile.nextLine();
+                line2 = infile.nextLine();
+                score = Integer.parseInt(line2);
+                Player player = new Player(line, score);
+                list.add(player);
+            }
+
+            infile.close();
+
+            PQList list1 = list.createClone(); //Creates a PQList clone
+            System.out.println("Size: " + list.getSize());
+            System.out.println("Is Empty: " + list.isEmpty());
+
+            while (list.isEmpty() == false){ //Prints Highest scored players to least
+                Player player = list.getHighestScorePlayer();
+                System.out.println("List1: " + player.getName() + ": " + player.getScore());
+                System.out.println("Size: " + list.getSize());
+            }
+            System.out.println("List Is Empty: " + list.isEmpty());
+            System.out.println("List1 Is Empty: " + list1.isEmpty());
+            Player player1 = list1.getHighestScorePlayer();
+            System.out.println("List1: " + player1.getName() + ": " + player1.getScore());
+            list1.clear();
+            System.out.println("List1 Is Empty: " + list1.isEmpty());
+
+
+
+        }
+        catch (FileNotFoundException e){
+            throw new RuntimeException(e);
+        }
     }
 }
